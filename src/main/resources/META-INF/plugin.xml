@@ -1,0 +1,111 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.github.intellij.gno</id>
+    <name>Gno</name>
+    <version>0.1.0</version>
+    <vendor>gnolang</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <resource-bundle>messages.MyBundle</resource-bundle>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Declaration Tool Window -->
+        <toolWindow factoryClass="com.github.gnolang.intellij.gno.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+
+        <!-- Files TextMate -->
+        <textmate-bundle path="/tmLanguage/gno.tmLanguage.json"/>
+        <textmate-bundle path="/tmLanguage/gno.mod.tmGrammar.json"/>
+
+        <!-- Configuring self-closing pairs -->
+        <autoClosePair language="Gno">
+            <option open="{" close="}"/>
+            <option open="[" close="]"/>
+            <option open="(" close=")"/>
+            <option open="`" close="`" notIn="string"/>
+            <option open="&quot;" close="&quot;" notIn="string"/>
+            <option open="'" close="'" notIn="string comment"/>
+        </autoClosePair>
+
+        <!-- Configuring indentation rules -->
+        <indentationRules language="Gno">
+            <increaseIndentPattern regex="^.*(\bcase\b.*:|\bdefault\b:|(\b(func|if|else|switch|select|for|struct)\b.*)?{[^}\&quot;'`]*|\([^)\&quot;'`]*)$"/>
+            <decreaseIndentPattern regex="^\s*(\bcase\b.*:|\bdefault\b:|}[)}]*[),]?|\)[,]?)$"/>
+        </indentationRules>
+
+        <!-- Code folding configuration -->
+        <folding language="Gno">
+            <startMarker regex="^\s*//\s*#?region\b"/>
+            <endMarker regex="^\s*//\s*#?endregion\b"/>
+        </folding>
+
+
+        <!-- Actions -->
+        <actions>
+            <action id="Gno.UpdateGnoplsBinary" class="com.github.gnolang.intellij.gno.actions.UpdateGnoplsAction" text="Update Gnopls">
+                <add-to-group group-id="ToolsMenu" anchor="last"/>
+            </action>
+
+            <action id="Gno.RunTidy" class="com.github.gnolang.intellij.gno.actions.RunTidyAction" text="Add a package to gno.mod">
+                <add-to-group group-id="ToolsMenu" anchor="last"/>
+            </action>
+
+            <action id="Gno.FindReferences" class="com.github.gnolang.intellij.gno.actions.FindReferencesAction" text="Find References">
+                <keyboard-shortcut keymap="default" first-keystroke="shift alt F12"/>
+                <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            </action>
+
+            <action id="Gno.Transpile" class="com.github.gnolang.intellij.gno.actions.TranspileAction" text="Transpiler Gno">
+                <add-to-group group-id="ToolsMenu" anchor="last"/>
+            </action>
+
+            <action id="Gno.FormatDocument" class="com.github.gnolang.intellij.gno.actions.FormatDocumentAction" text="Format Gno Document">
+                <add-to-group group-id="ToolsMenu" anchor="last"/>
+            </action>
+
+            <action id="Gno.TestPackage" class="com.github.gnolang.intellij.gno.actions.TestPackageAction" text="Testing the Gno Package">
+                <add-to-group group-id="ToolsMenu" anchor="last"/>
+            </action>
+
+            <action id="Gno.TestFile" class="com.github.gnolang.intellij.gno.actions.TestFileAction" text="Testing the Gno File">
+                <add-to-group group-id="ToolsMenu" anchor="last"/>
+            </action>
+
+            <action id="Gno.ModInit" class="com.github.gnolang.intellij.gno.actions.ModInitAction" text="Initialize gno.mod">
+                <add-to-group group-id="ToolsMenu" anchor="last"/>
+            </action>
+        </actions>
+    </extensions>
+
+    <!-- Listener -->
+    <applicationListeners>
+        <listener class="com.github.gnolang.intellij.gno.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+    </applicationListeners>
+
+    <!-- Snippet -->
+    <liveTemplates>
+        <liveTemplateContext>
+            <templateSet group="Gno" file="liveTemplates/GnoLiveTemplates.xml"/>
+        </liveTemplateContext>
+    </liveTemplates>
+
+    <!-- User settings -->
+    <extensions defaultExtensionNs="com.intellij">
+        <settings>
+            <option name="gno.transpileOnSave" value="false"/>
+            <option name="gno.formatTool" value="gofumpt"/>
+            <option name="gno.useLanguageServer" value="true"/>
+            <option name="gno.enableCodeLens" value="true"/>
+        </settings>
+    </extensions>
+
+    <!-- Configuration icon -->
+    <actions>
+        <action id="GnoIcon" class="com.github.gnolang.intellij.gno.actions.IconAction" text="Icone Gno">
+            <icon path="/icons/gno-icon-dark.png"/>
+        </action>
+    </actions>
+
+    <projectService serviceImplementation="com.github.gnolang.intellij.gno.services.ConfigurationService"/>
+
+</idea-plugin>

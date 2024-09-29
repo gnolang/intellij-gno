@@ -1,0 +1,45 @@
+<templateSet group="Gno">
+    <!-- Snippet for single import -->
+    <template name="single import" value="import &quot;\$1&quot;" description="Snippet for import statement" toReformat="true" toShortenFQNames="true">
+        <context>
+            <option name="Gno" value="true"/>
+        </context>
+    </template>
+
+    <!-- Snippet for multiple imports -->
+    <template name="multiple imports" value="import (\n\t&quot;\$1&quot;\n)" description="Snippet for an import block" toReformat="true" toShortenFQNames="true">
+        <context>
+            <option name="Gno" value="true"/>
+        </context>
+    </template>
+
+    <!-- Snippet for single constant -->
+    <template name="single constant" value="const \$1 = \$2" description="Snippet for a constant" toReformat="true" toShortenFQNames="true">
+        <context>
+            <option name="Gno" value="true"/>
+        </context>
+    </template>
+
+    <!-- Snippet for type struct declaration -->
+    <template name="type struct declaration" value="type \$1 struct {\n\t\$0\n}" description="Snippet for a struct declaration" toReformat="true" toShortenFQNames="true">
+        <context>
+            <option name="Gno" value="true"/>
+        </context>
+    </template>
+
+    <!-- Snippet for package main and main function -->
+    <template name="package main and main function" value="package main\n\nfunc main() {\n\t\$0\n}" description="Snippet for main package & function" toReformat="true" toShortenFQNames="true">
+        <context>
+            <option name="Gno" value="true"/>
+        </context>
+    </template>
+
+    <!-- Snippet for function declaration -->
+    <template name="function declaration" value="func \$1(\$2) \$3 {\n\t\$0\n}" description="Snippet for function declaration" toReformat="true" toShortenFQNames="true">
+        <context>
+            <option name="Gno" value="true"/>
+        </context>
+    </template>
+
+    <!-- Continue adding more snippets similarly -->
+</templateSet>
