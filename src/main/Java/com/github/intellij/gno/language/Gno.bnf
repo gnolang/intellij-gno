@@ -1,0 +1,30 @@
+{
+  parserClass="com.github.intellij.gno.language.parser.GnoParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Gno"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.github.intellij.gno.language.psi"
+  psiImplPackage="com.github.intellij.gno.language.psi.impl"
+
+  elementTypeHolderClass="com.github.intellij.gno.language.psi.GnoTypes"
+  elementTypeClass="com.github.intellij.gno.language.psi.GnoElementType"
+  tokenTypeClass="com.github.intellij.gno.language.psi.GnoTokenType"
+
+  psiImplUtilClass="com.github.intellij.gno.language.psi.impl.GnoImplUtil"
+}
+
+simpleFile ::= item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+property ::= (KEY? SEPARATOR VALUE?) | KEY {
+  pin=3
+  recoverWhile="recover_property"
+  mixin="com.github.intellij.gno.language.psi.impl.GnoNamedElementImpl"
+  implements="com.github.intellij.gno.language.psi.GnoNamedElement"
+  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
+}
+
+private recover_property ::= !(KEY|SEPARATOR|COMMENT)

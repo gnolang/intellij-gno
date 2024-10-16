@@ -13,11 +13,17 @@
               extensions="gno"
               language="Gno"
     />
+    <lang.syntaxHighlighterFactory language="Gno"
+                                   implementationClass="com.github.intellij.gno.language.GnoSyntaxHighlighterFactory"
+    />
+    <annotator language="Gno" implementationClass="com.github.intellij.gno.language.GnoAnnotator"/>
+    <lang.findUsagesProvider language="Gno"
+                             implementationClass="com.github.intellij.gno.language.GnoFindUsagesProvider"/>
+    <lang.foldingBuilder language="Gno" implementationClass="com.github.intellij.gno.language.GnoFoldingBuilder"/>
   </extensions>
 
 
   <applicationListeners>
-    <listener class="com.github.intellij.gno.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
   </applicationListeners>
 
 </idea-plugin>
